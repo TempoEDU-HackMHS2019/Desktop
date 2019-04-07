@@ -9,10 +9,12 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-    
+
 public class Requests {
+    static String authkey = "zoSvgvvmPZGsFOFBcclcERmbQDNHQRCJcTjIIXDWgUsvnKgRpq";
 public static void main(String[] args) throws UnirestException {
-        HttpResponse<JsonNode> jsonResponse = login("test@test.test", "Test");
+        HttpResponse<JsonNode> jsonResponse = createEvent("Sonicxyz", "Luke2:52", 1, 2, "2019-04-08 03-00-00");
+        //HttpResponse<JsonNode> jsonResponse = profile();
         System.out.println(jsonResponse.getBody() + " " + jsonResponse.getStatus());
 }
 
@@ -44,53 +46,65 @@ public static void main(String[] args) throws UnirestException {
         
     }
     
-    public static HttpResponse<JsonNode> createEvent(String auth, String name, String description, int type, String due, int dif, int pid) throws UnirestException{
+    public static HttpResponse<JsonNode> createEvent(String name, String description, int dif, int type, String due) throws UnirestException{
         String url = "https://api.tempoapp.pro/v1/event/create";
 	
         return Unirest.post(url)
     //  .header("accept", "application/json")
-      .header("Authorization", auth)
+      .header("Authorization", authkey)
     //  .queryString("apiKey", "123")
       .field("name", name)
       .field("description", description)
+      .field("difficulty", dif)
       .field("type", type)
       .field("duedate", due)
-      .field("difficulty", dif)
-      .field("parent_id", pid)
       .asJson();
         
     }
     
-    public static HttpResponse<JsonNode> getEvents(String auth) throws UnirestException{
+    public static HttpResponse<JsonNode> getEvents() throws UnirestException{
         String url = "https://api.tempoapp.pro/v1/event/all";
 	
         return Unirest.get(url)
     //  .header("accept", "application/json")
-      .header("Authorization", auth)
+      .header("Authorization", authkey)
       .asJson();
         
     }
     
-    public static HttpResponse<JsonNode> getEventId(String auth, int id) throws UnirestException{
+    public static HttpResponse<JsonNode> profile() throws UnirestException{
+        String url = "https://api.tempoapp.pro/v1/profile";
+	
+        return Unirest.get(url)
+    //  .header("accept", "application/json")
+      .header("Authorization", authkey)
+      .asJson();
+        
+    }
+    
+    public static HttpResponse<JsonNode> getEventId(int id) throws UnirestException{
         String url = "https://api.tempoapp.pro/v1/login/event/" + id;
 	
         return Unirest.get(url)
     //  .header("accept", "application/json")
-      .header("Authorization", auth)
+      .header("Authorization", authkey)
     //  .queryString("apiKey", "123")
       .asJson();
         
     }
     
-    public static HttpResponse<JsonNode> delEventId(String auth, int id) throws UnirestException{
+    public static HttpResponse<JsonNode> delEventId(int id) throws UnirestException{
         String url = "https://api.tempoapp.pro/v1/login/event/" + id;
 	
         return Unirest.delete(url)
     //  .header("accept", "application/json")
-      .header("Authorization", auth)
+      .header("Authorization", authkey)
     //  .queryString("apiKey", "123")
       .asJson();
         
     }
-
+    
+    public static void setAuth(String key){
+        authkey = key;
+    }
 }
