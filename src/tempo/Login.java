@@ -365,6 +365,7 @@ public class Login extends javax.swing.JFrame {
             Home s;
             s = new Home();
             s.setVisible(true);
+            Requests.username = Requests.profile().getBody().getObject().getString("username");
             }
             else
                 JOptionPane.showMessageDialog(null, "Error: " + json.getBody().getObject().getString("reason"));

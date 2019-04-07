@@ -11,7 +11,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class Requests {
-    static String authkey = "zoSvgvvmPZGsFOFBcclcERmbQDNHQRCJcTjIIXDWgUsvnKgRpq";
+    private static String authkey = "zoSvgvvmPZGsFOFBcclcERmbQDNHQRCJcTjIIXDWgUsvnKgRpq";
+    static String username = "";
 public static void main(String[] args) throws UnirestException {
         HttpResponse<JsonNode> jsonResponse = createEvent("Sonicxyz", "Luke2:52", 1, 2, "2019-04-08 03-00-00");
         //HttpResponse<JsonNode> jsonResponse = profile();
